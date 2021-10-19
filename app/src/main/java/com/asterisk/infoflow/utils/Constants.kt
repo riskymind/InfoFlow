@@ -1,0 +1,9 @@
+package com.asterisk.infoflow.utils
+
+object Constants {
+
+    const val BREAKING_NEWS_FRAGMENT_TAG = "BREAKING_NEWS_FRAGMENT_TAG"
+    const val SEARCH_NEWS_FRAGMENT_TAG = "SEARCH_NEWS_FRAGMENT_TAG"
+    const val SAVED_NEWS_FRAGMENT_TAG = "SAVED_NEWS_FRAGMENT_TAG"
+    const val KEY_SELECTED_INDEX = "KEY_SELECTED_INDEX"
+}

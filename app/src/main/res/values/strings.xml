@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">InfoFlow</string>
+    <string name="title_breaking_news">Breaking News</string>
+    <string name="title_search_news">Search News</string>
+    <string name="title_save">Saved News</string>
+    <string name="breaking">Breaking</string>
+    <string name="search">Search</string>
+    <string name="save_news">Saved News</string>
+    <string name="could_not_refresh">Could not refresh: %s</string>
+    <string name="could_not_load_search_results">Could not load search results: %s</string>
+    <string name="unknown_error_occurred">An unknown error occurred</string>
+    <string name="retry">Retry</string>
+    <string name="refresh">Refresh</string>
+    <string name="no_save_news">No save news</string>
+    <string name="no_results_found">No results found</string>
+    <string name="search_instructions">Tap the magnifying glass to start searching</string>
+    <string name="delete_all_saved_news">Delete all save news</string>
 </resources>
