@@ -12,7 +12,9 @@ import com.asterisk.infoflow.utils.Constants.BREAKING_NEWS_FRAGMENT_TAG
 import com.asterisk.infoflow.utils.Constants.KEY_SELECTED_INDEX
 import com.asterisk.infoflow.utils.Constants.SAVED_NEWS_FRAGMENT_TAG
 import com.asterisk.infoflow.utils.Constants.SEARCH_NEWS_FRAGMENT_TAG
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
