@@ -1,4 +1,4 @@
-package com.asterisk.infoflow.data
+package com.asterisk.infoflow.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

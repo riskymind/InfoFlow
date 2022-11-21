@@ -2,9 +2,12 @@ package com.asterisk.infoflow.di
 
 import android.app.Application
 import androidx.room.Room
-import com.asterisk.infoflow.api.NewsApi
-import com.asterisk.infoflow.data.NewsArticleDatabase
-import com.asterisk.infoflow.utils.Constants.BASE_URL
+import com.asterisk.infoflow.data.local.NewsArticleDao
+import com.asterisk.infoflow.data.remote.NewsApi
+import com.asterisk.infoflow.data.local.NewsArticleDatabase
+import com.asterisk.infoflow.data.repository.NewsRepositoryImpl
+import com.asterisk.infoflow.domain.repository.NewsRepository
+import com.asterisk.infoflow.commons.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,8 +43,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDbDao(db: NewsArticleDatabase) = db.newsArticleDao()
+    fun provideDbDao(db: NewsArticleDatabase): NewsArticleDao = db.newsArticleDao()
 
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsApi: NewsApi, db: NewsArticleDatabase): NewsRepository {
+        return NewsRepositoryImpl(newsApi, db)
+    }
 
 
 

@@ -8,10 +8,10 @@ import com.asterisk.infoflow.databinding.ActivityMainBinding
 import com.asterisk.infoflow.ui.breaking_news.BreakingNewsFragment
 import com.asterisk.infoflow.ui.saved_news.SaveNewsFragment
 import com.asterisk.infoflow.ui.search_news.SearchNewsFragment
-import com.asterisk.infoflow.utils.Constants.BREAKING_NEWS_FRAGMENT_TAG
-import com.asterisk.infoflow.utils.Constants.KEY_SELECTED_INDEX
-import com.asterisk.infoflow.utils.Constants.SAVED_NEWS_FRAGMENT_TAG
-import com.asterisk.infoflow.utils.Constants.SEARCH_NEWS_FRAGMENT_TAG
+import com.asterisk.infoflow.commons.Constants.BREAKING_NEWS_FRAGMENT_TAG
+import com.asterisk.infoflow.commons.Constants.KEY_SELECTED_INDEX
+import com.asterisk.infoflow.commons.Constants.SAVED_NEWS_FRAGMENT_TAG
+import com.asterisk.infoflow.commons.Constants.SEARCH_NEWS_FRAGMENT_TAG
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    // UI objects
     private lateinit var breakingNewsFragment: BreakingNewsFragment
     private lateinit var searchNewsFragment: SearchNewsFragment
     private lateinit var saveNewsFragment: SaveNewsFragment
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private var selectedIndex = 0
 
+    // get the first ui
     private val selectedFragment get() = fragments[selectedIndex]
 
     private fun selectFragment(selectedFragment: Fragment) {

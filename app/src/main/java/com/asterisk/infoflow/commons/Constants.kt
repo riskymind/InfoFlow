@@ -1,4 +1,4 @@
-package com.asterisk.infoflow.utils
+package com.asterisk.infoflow.commons
 
 import com.asterisk.infoflow.BuildConfig
 

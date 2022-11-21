@@ -1,6 +1,7 @@
-package com.asterisk.infoflow.api
+package com.asterisk.infoflow.data.remote
 
-import com.asterisk.infoflow.utils.Constants.API_KEY
+import com.asterisk.infoflow.data.remote.dto.NewsResponse
+import com.asterisk.infoflow.commons.Constants.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
