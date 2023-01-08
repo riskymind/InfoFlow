@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/breakingNewsFragment">
+
+    <fragment
+        android:id="@+id/breakingNewsFragment"
+        android:name="com.asterisk.infoflow.ui.breaking_news.BreakingNewsFragment"
+        android:label="BreakingNewsFragment" />
+    <fragment
+        android:id="@+id/searchNewsFragment"
+        android:name="com.asterisk.infoflow.ui.search_news.SearchNewsFragment"
+        android:label="SearchNewsFragment" />
+    <fragment
+        android:id="@+id/saveNewsFragment"
+        android:name="com.asterisk.infoflow.ui.saved_news.SaveNewsFragment"
+        android:label="SaveNewsFragment" />
+</navigation>

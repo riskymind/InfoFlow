@@ -1,16 +1,18 @@
-package com.asterisk.infoflow.commons
+package com.asterisk.infoflow.ui.search_news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
+import com.asterisk.infoflow.commons.NewsArticleComparator
+import com.asterisk.infoflow.commons.NewsArticleViewHolder
 import com.asterisk.infoflow.databinding.NewsItemBinding
 import com.asterisk.infoflow.domain.model.NewsArticle
 
-class NewsArticleListAdapter(
+class NewsArticlePagingAdapter(
     private val onItemClick: (NewsArticle) -> Unit,
     private val onSaveClick: (NewsArticle) -> Unit,
 ) :
-    ListAdapter<NewsArticle, NewsArticleViewHolder>(NewsArticleComparator()) {
+    PagingDataAdapter<NewsArticle, NewsArticleViewHolder>(NewsArticleComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsArticleViewHolder {
         val binding =
             NewsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

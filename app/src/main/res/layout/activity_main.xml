@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_nav"
-        android:name="com.asterisk.infoflow.ui.breaking_news.BreakingNewsFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
         tools:layout="@layout/fragment_breaking_news" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

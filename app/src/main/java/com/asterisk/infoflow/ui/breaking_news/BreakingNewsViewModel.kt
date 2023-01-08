@@ -4,50 +4,87 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.asterisk.infoflow.commons.Resource
 import com.asterisk.infoflow.data.repository.NewsRepositoryImpl
+import com.asterisk.infoflow.domain.model.NewsArticle
+import com.asterisk.infoflow.domain.repository.NewsRepository
 import com.asterisk.infoflow.domain.use_cases.BreakingNewsUseCase
-import com.asterisk.infoflow.ui.breaking_news.uistate.BreakingNewsUiState
+import com.asterisk.infoflow.domain.use_cases.DeleteOlderNonSavedArticleUseCase
+import com.asterisk.infoflow.domain.use_cases.SaveArticleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BreakingNewsViewModel @Inject constructor(
-    private val breakingNewsUseCase: BreakingNewsUseCase
+    private val newsUseCase: BreakingNewsUseCase,
+    private val deleteUseCase: DeleteOlderNonSavedArticleUseCase,
+    private val saveArticleUseCase: SaveArticleUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(BreakingNewsUiState())
-    val uiState: StateFlow<BreakingNewsUiState> = _uiState.asStateFlow()
+
+    private val refreshTriggerChannel = Channel<Refresh>()
+    private val refreshTrigger = refreshTriggerChannel.receiveAsFlow()
+
+    private val eventChannel = Channel<EVent>()
+    val events = eventChannel.receiveAsFlow()
+
+    var scrollToTop = false
 
     init {
-        getBreakingNews()
+        viewModelScope.launch {
+            deleteUseCase()
+        }
     }
 
-    private fun getBreakingNews() {
-        viewModelScope.launch {
-            breakingNewsUseCase().onEach { result ->
-                when (result) {
-                    is Resource.Error -> {
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            isError = result.error ?: "unexpected error!!"
-                        )
-                    }
-                    is Resource.Loading -> {
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = true
-                        )
-                    }
-                    is Resource.Success -> {
-                        _uiState.value = _uiState.value.copy(
-                            breakingNews = result.data ?: emptyList(),
-                            isLoading = false
-                        )
-                    }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val breakingNews = refreshTrigger.flatMapLatest { refresh ->
+        newsUseCase(
+            forceRefresh = refresh == Refresh.FORCE,
+            onFetchSucceed = {
+                scrollToTop = true
+            },
+            onFetchFailed = {
+                viewModelScope.launch {
+                    eventChannel.send(EVent.ShowErrorMessage(it))
                 }
-            }.launchIn(this)
+            }
+        )
+    }.stateIn(viewModelScope, SharingStarted.Lazily, null)
+
+
+    fun onManualRefresh() {
+        if (breakingNews.value !is Resource.Loading) {
+            viewModelScope.launch {
+                refreshTriggerChannel.send(Refresh.FORCE)
+            }
         }
 
     }
 
+    fun onStart() {
+        if (breakingNews.value !is Resource.Loading) {
+            viewModelScope.launch {
+                refreshTriggerChannel.send(Refresh.NORMAL)
+            }
+        }
+
+    }
+
+
+    fun saveArticle(article: NewsArticle) {
+        viewModelScope.launch {
+            saveArticleUseCase(article)
+        }
+    }
+
+}
+
+enum class Refresh {
+    FORCE, NORMAL
+}
+
+sealed class EVent {
+    data class ShowErrorMessage(val error: Throwable) : EVent()
 }

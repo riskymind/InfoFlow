@@ -17,7 +17,3 @@ fun NewsArticleDTO.toNewsArticleEntity(): NewsArticleEntity {
         thumbnailUrl = urlToImage
     )
 }
-
-fun NewsArticleDTO.toBreakingNewsArticle(): BreakingNewsArticle {
-    return BreakingNewsArticle(articleUrl = url)
-}

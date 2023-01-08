@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
     id 'com.google.secrets_gradle_plugin' version '0.6'
 }
@@ -32,11 +33,13 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     buildFeatures {
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -70,6 +73,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.5.0-beta02"
     kapt "androidx.room:room-compiler:2.5.0-beta02"
     implementation "androidx.room:room-ktx:2.5.0-beta02"
+    implementation "androidx.room:room-paging:2.4.3"
 
     // SwipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -82,8 +86,15 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 }
+
 
 kapt {
     correctErrorTypes true
 }
+
+
